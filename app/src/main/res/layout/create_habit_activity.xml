@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:gravity="center_horizontal">
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/habit_name_hint">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/habit_name_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:padding="12dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/habit_description_hint"
+            android:layout_marginBottom="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/habit_description_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:padding="12dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+            android:id="@+id/habit_priority_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <RadioGroup
+            android:id="@+id/type_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+        <RadioButton android:id="@+id/radio_exercise"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="Тренировка"/>
+        <RadioButton android:id="@+id/radio_work"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="Работа"/>
+
+    </RadioGroup>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <EditText
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Сколько"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="раз за"/>
+        <EditText
+                android:id="@+id/frequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="промежуток"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="дней"/>
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/habit_save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Сохранить"/>
+
+</LinearLayout>
