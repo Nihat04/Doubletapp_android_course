@@ -9,6 +9,6 @@ data class Habit(
     val description: String,
     val priority: String,
     val type: String?,
-    val count: Int?,
-    val frequency: Int?,
+    val count: Int,
+    val frequency: Int,
 ) : Parcelable

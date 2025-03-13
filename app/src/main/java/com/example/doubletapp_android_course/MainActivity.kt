@@ -7,7 +7,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.doubletapp_android_course.databinding.MainActivityBinding
 
-class MainActivity : ComponentActivity() {
+interface OnHabitClickListener {
+    fun onHabitClick(habit: Habit)
+}
+
+class MainActivity : ComponentActivity(), OnHabitClickListener {
     private val data = mutableListOf<Habit>()
     private lateinit var customAdapter: HabitAdapter
 
@@ -26,7 +30,7 @@ class MainActivity : ComponentActivity() {
         val binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        customAdapter = HabitAdapter(data)
+        customAdapter = HabitAdapter(data, this)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = customAdapter
 
@@ -34,5 +38,13 @@ class MainActivity : ComponentActivity() {
             val intent = Intent(this, CreateHabitActivity::class.java)
             createHabitLauncher.launch(intent)
         }
+    }
+
+    override fun onHabitClick(habit: Habit) {
+        val intent = Intent(this, CreateHabitActivity::class.java)
+
+        habit.let { intent.putExtra("habit", it) }
+
+        createHabitLauncher.launch(intent)
     }
 }
