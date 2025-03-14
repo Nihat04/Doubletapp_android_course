@@ -11,4 +11,5 @@ data class Habit(
     val type: String?,
     val count: Int,
     val frequency: Int,
+    val color: Int?
 ) : Parcelable

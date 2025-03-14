@@ -19,7 +19,15 @@ class MainActivity : ComponentActivity(), OnHabitClickListener {
         if (result.resultCode == RESULT_OK) {
             val newHabit = result.data?.getParcelableExtra<Habit>("habit")
             newHabit?.let {
-                data.add(it)
+
+                if (data.any {it.name == newHabit.name}) {
+                    val index = data.indexOfFirst { it.name == newHabit.name }
+
+                    data[index] = newHabit
+                } else {
+                    data.add(it)
+                }
+
                 customAdapter.notifyDataSetChanged()
             }
         }
@@ -42,9 +50,7 @@ class MainActivity : ComponentActivity(), OnHabitClickListener {
 
     override fun onHabitClick(habit: Habit) {
         val intent = Intent(this, CreateHabitActivity::class.java)
-
-        habit.let { intent.putExtra("habit", it) }
-
+        intent.putExtra("habit", habit)
         createHabitLauncher.launch(intent)
     }
 }

@@ -20,5 +20,9 @@ class HabitAdapter(private val habits: List<Habit>, private val listener: OnHabi
         holder.itemView.setOnClickListener {
             listener.onHabitClick(habit)
         }
+
+        if(habit.color != null) {
+            holder.itemView.setBackgroundColor(habit.color)
+        }
     }
 }
