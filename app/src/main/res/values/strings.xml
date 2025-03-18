@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Doubletapp_android_course</string>
+    <string name="add_habit">Создать</string>
+    <string name="habit_name_hint">Название привычки</string>
+    <string name="habit_description_hint">Описание</string>
+    <string name="title_activity_create_habit">CreateHabitActivity</string>
 </resources>
