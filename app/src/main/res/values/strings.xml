@@ -4,4 +4,8 @@
     <string name="habit_name_hint">Название привычки</string>
     <string name="habit_description_hint">Описание</string>
     <string name="title_activity_create_habit">CreateHabitActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open_drawer">Меню</string>
+    <string name="close_drawer">Закрыть</string>
 </resources>

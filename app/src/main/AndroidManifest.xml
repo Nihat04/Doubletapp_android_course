@@ -13,11 +13,6 @@
             android:theme="@style/Theme.Doubletapp_android_course"
             tools:targetApi="31">
         <activity
-                android:name=".CreateHabitActivity"
-                android:exported="false"
-                android:label="@string/title_activity_create_habit"
-                android:theme="@style/Theme.Doubletapp_android_course"/>
-        <activity
                 android:name=".MainActivity"
                 android:exported="true"
                 android:label="@string/app_name"

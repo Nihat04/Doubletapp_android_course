@@ -1,56 +1,62 @@
 package com.example.doubletapp_android_course
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.doubletapp_android_course.databinding.MainActivityBinding
+import com.example.doubletapp_android_course.ui.fragments.AboutFragment
+import com.example.doubletapp_android_course.ui.fragments.HabitsFragment
+import com.google.android.material.navigation.NavigationView
 
-interface OnHabitClickListener {
-    fun onHabitClick(habit: Habit)
-}
+class MainActivity : AppCompatActivity() {
 
-class MainActivity : ComponentActivity(), OnHabitClickListener {
-    private val data = mutableListOf<Habit>()
-    private lateinit var customAdapter: HabitAdapter
-
-    private val createHabitLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            val newHabit = result.data?.getParcelableExtra<Habit>("habit")
-            newHabit?.let {
-
-                if (data.any {it.name == newHabit.name}) {
-                    val index = data.indexOfFirst { it.name == newHabit.name }
-
-                    data[index] = newHabit
-                } else {
-                    data.add(it)
-                }
-
-                customAdapter.notifyDataSetChanged()
-            }
-        }
-    }
+    private lateinit var binding: MainActivityBinding
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navigation: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = MainActivityBinding.inflate(layoutInflater)
+        binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        customAdapter = HabitAdapter(data, this)
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = customAdapter
+        drawerLayout = binding.drawerLayout
+        navigation = binding.navigation
 
-        binding.createButton.setOnClickListener {
-            val intent = Intent(this, CreateHabitActivity::class.java)
-            createHabitLauncher.launch(intent)
+        setSupportActionBar(binding.toolbar)
+
+        val toggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.open_drawer,
+            R.string.close_drawer
+        )
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navigation.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_home -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, HabitsFragment())
+                        .commit()
+                }
+                R.id.nav_about -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, AboutFragment())
+                        .commit()
+                }
+            }
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
         }
-    }
 
-    override fun onHabitClick(habit: Habit) {
-        val intent = Intent(this, CreateHabitActivity::class.java)
-        intent.putExtra("habit", habit)
-        createHabitLauncher.launch(intent)
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, HabitsFragment())
+                .commit()
+        }
     }
 }
