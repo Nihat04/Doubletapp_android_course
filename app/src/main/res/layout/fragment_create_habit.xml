@@ -50,14 +50,14 @@
             android:orientation="horizontal"
             android:layout_marginBottom="16dp">
 
-        <RadioButton android:id="@+id/radio_exercise"
+        <RadioButton android:id="@+id/radio_negative"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:text="Тренировка"/>
-        <RadioButton android:id="@+id/radio_work"
+                     android:text="@string/negative_habit"/>
+        <RadioButton android:id="@+id/radio_positive"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:text="Работа"/>
+                     android:text="@string/positive_habit"/>
 
     </RadioGroup>
 

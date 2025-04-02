@@ -8,4 +8,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open_drawer">Меню</string>
     <string name="close_drawer">Закрыть</string>
+
+    <string name="positive_habit">Хорошая привычка</string>
+    <string name="negative_habit">Вредная привычка</string>
 </resources>

@@ -6,15 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.doubletapp_android_course.Habit
 import com.example.doubletapp_android_course.R
 import com.example.doubletapp_android_course.databinding.FragmentHabitsBinding
 import com.example.doubletapp_android_course.lib.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-
-interface OnHabitClickListener {
-    fun onHabitClick(habit: Habit)
-}
 
 class HabitsFragment : Fragment()  {
     private lateinit var binding: FragmentHabitsBinding
@@ -34,8 +29,8 @@ class HabitsFragment : Fragment()  {
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "Тренировка"
-                1 -> "Работа"
+                0 -> getString(R.string.negative_habit)
+                1 -> getString(R.string.positive_habit)
                 else -> throw IllegalArgumentException("не удалось найти $position")
             }
         }.attach()

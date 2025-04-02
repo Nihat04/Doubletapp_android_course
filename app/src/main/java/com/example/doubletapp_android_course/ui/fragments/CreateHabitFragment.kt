@@ -13,33 +13,34 @@ import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import com.example.doubletapp_android_course.Habit
 import com.example.doubletapp_android_course.R
 import com.example.doubletapp_android_course.databinding.FragmentCreateHabitBinding
 import com.example.doubletapp_android_course.lib.HabitViewModel
+import com.example.doubletapp_android_course.model.enums.HabitType
 import com.google.android.material.snackbar.Snackbar
 
 class CreateHabitFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateHabitBinding
-    private var habitId: Int? = null
+    private var habit: Habit? = null
     private val viewModel: HabitViewModel by activityViewModels()
 
     companion object {
-        private const val ARG_HABIT_ID = "habit_id"
-
-        fun newInstance(habitId: Int? = null): CreateHabitFragment {
-            val fragment = CreateHabitFragment()
-            val args = Bundle()
-            habitId?.let { args.putInt(ARG_HABIT_ID, it) }
-            fragment.arguments = args
-            return fragment
+        fun newInstance(habit: Habit): CreateHabitFragment {
+            return CreateHabitFragment().apply {
+                arguments = bundleOf("habit" to habit)
+            }
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentCreateHabitBinding.inflate(inflater, container, false)
+
+        habit = arguments?.getParcelable<Habit>("habit")
+
         return binding.root
     }
 
@@ -47,7 +48,7 @@ class CreateHabitFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         addArrays()
-        applyEditState()
+        provideHabit()
         addColorPicker()
 
 
@@ -65,9 +66,8 @@ class CreateHabitFragment : Fragment() {
         }
     }
 
-    private fun applyEditState() {
-        habitId = arguments?.getInt(ARG_HABIT_ID, -1)?.takeIf { it != -1 }
-        val habit = viewModel.habits.value?.find { it.id == habitId }
+    private fun provideHabit() {
+        val habit = this.habit
 
         if (habit != null) {
             binding.habitNameInput.setText(habit.name)
@@ -86,9 +86,7 @@ class CreateHabitFragment : Fragment() {
             }
 
 
-            if (habit.type != null) {
-                setRadio(binding.typeRadio, habit.type)
-            }
+            setRadio(binding.typeRadio, habit.type)
         }
     }
 
@@ -127,11 +125,17 @@ class CreateHabitFragment : Fragment() {
             val description = binding.habitDescriptionInput.text.toString().trim()
             val priority = binding.habitPrioritySpinner.selectedItem.toString()
             val type = getRadio(binding.typeRadio)
+
+            if (type == null) {
+                Snackbar.make(it, "Пожалуйства выберите привычку", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val countText = binding.count.text.toString().trim()
             val frequencyText = binding.frequency.text.toString().trim()
             var color: Int? = null
 
-            if(binding.colorContainer.background != null) {
+            if (binding.colorContainer.background != null) {
                 color = getColor(binding.colorContainer.background)
             }
 
@@ -159,7 +163,7 @@ class CreateHabitFragment : Fragment() {
 
             if (!isValid) return@setOnClickListener
 
-            val newId = habitId ?: viewModel.generateId()
+            val newId = habit?.id ?: viewModel.generateId()
 
             val habit = Habit(
                 newId,
@@ -178,23 +182,22 @@ class CreateHabitFragment : Fragment() {
         }
     }
 
-    private fun getRadio(radioGroup: RadioGroup): String? {
+    private fun getRadio(radioGroup: RadioGroup): HabitType? {
         val selectedRadioId = radioGroup.checkedRadioButtonId
+        val selectedRadioButton = radioGroup.findViewById<RadioButton>(selectedRadioId)
 
-        if (selectedRadioId != -1) {
-            val selectedRadioButton = binding.root.findViewById<RadioButton>(selectedRadioId)
-            val selectedText = selectedRadioButton.text.toString()
+        return when (selectedRadioButton?.id) {
+            R.id.radio_positive -> HabitType.POSITIVE
+            R.id.radio_negative -> HabitType.NEGATIVE
+            else -> null
 
-            return selectedText
         }
-
-        return null
     }
 
-    private fun setRadio(radioGroup: RadioGroup, type: String) {
+    private fun setRadio(radioGroup: RadioGroup, type: HabitType) {
         when (type) {
-            "Работа" -> radioGroup.check(R.id.radio_work)
-            "Тренировка" -> radioGroup.check(R.id.radio_exercise)
+            HabitType.POSITIVE -> radioGroup.check(R.id.radio_positive)
+            HabitType.NEGATIVE -> radioGroup.check(R.id.radio_negative)
         }
     }
 
@@ -205,7 +208,7 @@ class CreateHabitFragment : Fragment() {
             }
 
             return null
-        } catch (e: NullPointerException) {
+        } catch (_: NullPointerException) {
             return null
         }
 

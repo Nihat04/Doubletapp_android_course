@@ -1,6 +1,7 @@
 package com.example.doubletapp_android_course
 
 import android.os.Parcelable
+import com.example.doubletapp_android_course.model.enums.HabitType
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -9,7 +10,7 @@ data class Habit(
     val name: String,
     val description: String,
     val priority: String,
-    val type: String?,
+    val type: HabitType,
     val count: Int,
     val frequency: Int,
     val color: Int?
