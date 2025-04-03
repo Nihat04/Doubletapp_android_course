@@ -18,6 +18,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.doubletapp_android_course.Habit
 import com.example.doubletapp_android_course.R
 import com.example.doubletapp_android_course.databinding.FragmentCreateHabitBinding
+import com.example.doubletapp_android_course.lib.HabitEditViewModel
 import com.example.doubletapp_android_course.lib.HabitViewModel
 import com.example.doubletapp_android_course.model.enums.HabitType
 import com.google.android.material.snackbar.Snackbar
@@ -27,6 +28,7 @@ class CreateHabitFragment : Fragment() {
     private lateinit var binding: FragmentCreateHabitBinding
     private var habit: Habit? = null
     private val viewModel: HabitViewModel by activityViewModels()
+    private val editViewModel: HabitEditViewModel by activityViewModels()
 
     companion object {
         fun newInstance(habit: Habit): CreateHabitFragment {
@@ -163,20 +165,8 @@ class CreateHabitFragment : Fragment() {
 
             if (!isValid) return@setOnClickListener
 
-            val newId = habit?.id ?: viewModel.generateId()
-
-            val habit = Habit(
-                newId,
-                name,
-                description,
-                priority,
-                type,
-                countText.toInt(),
-                frequencyText.toInt(),
-                color
-            )
-
-            viewModel.addHabit(habit)
+            editViewModel.saveHabit(name, description, priority, type, countText.toInt(), frequencyText.toInt(), color)
+            editViewModel.habit.value?.let { viewModel.addHabit(it) }
 
             parentFragmentManager.popBackStack()
         }

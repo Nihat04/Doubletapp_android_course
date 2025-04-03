@@ -1,6 +1,8 @@
 package com.example.doubletapp_android_course
 
+import FilterBottomSheetFragment
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat

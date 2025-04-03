@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="16dp">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Фильтрация привычек"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
+
+    <RadioGroup
+            android:id="@+id/filterRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <RadioButton
+                android:id="@+id/radio_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Все" />
+
+        <RadioButton
+                android:id="@+id/radio_positive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Положительные" />
+
+        <RadioButton
+                android:id="@+id/radio_negative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Отрицательные" />
+    </RadioGroup>
+
+    <Button
+            android:id="@+id/applyFilterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Применить"
+            android:layout_marginTop="12dp" />
+</LinearLayout>

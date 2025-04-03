@@ -3,7 +3,6 @@ package com.example.doubletapp_android_course.lib
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.doubletapp_android_course.Habit
-import kotlin.collections.maxByOrNull
 
 class HabitViewModel: ViewModel() {
     val habits = MutableLiveData<MutableList<Habit>>(mutableListOf())
@@ -20,7 +19,11 @@ class HabitViewModel: ViewModel() {
         habits.value = currentHabits
     }
 
+    fun setHabits(habitList: MutableList<Habit>) {
+        habits.value = habitList
+    }
+
     fun generateId(): Int {
-        return (habits.value?.maxByOrNull { it.id }?.id ?: 0) + 1
+        return System.currentTimeMillis().toInt()
     }
 }
