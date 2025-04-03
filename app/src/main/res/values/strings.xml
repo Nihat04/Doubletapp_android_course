@@ -11,4 +11,26 @@
 
     <string name="positive_habit">Хорошая привычка</string>
     <string name="negative_habit">Вредная привычка</string>
+
+    <string name="habit_save">Сохранить</string>
+    <string name="habit_add">Добавить</string>
+    <string name="habit_cancel">Отменить</string>
+    <string name="habit_apply">Применить</string>
+    <string name="habit_reset">Сбросить</string>
+
+    <string name="search">Поиск</string>
+    <string name="search_hint">Введите текст для поиска</string>
+    <string name="filters">Фильтры</string>
+    <string name="zero">0</string>
+    <string name="sorting">Сортировка</string>
+
+    <string name="app_name">HabitTracker</string>
+    <string name="habit_name">Название</string>
+    <string name="habit_description">Описание</string>
+    <string name="habit_priority">Приоритет</string>
+    <string name="habit_type">Тип привычки</string>
+    <string name="habit_good_type">Хорошая привычка</string>
+    <string name="habit_bad_type">Плохая привычка</string>
+    <string name="habit_quantity">Количество</string>
+    <string name="habit_frequency">Периодичность</string>
 </resources>
