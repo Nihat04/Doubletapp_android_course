@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Doubletapp_android_course</string>
+    <string name="app_name">DTracker</string>
     <string name="add_habit">Создать</string>
     <string name="habit_name_hint">Название привычки</string>
     <string name="habit_description_hint">Описание</string>
@@ -24,7 +24,6 @@
     <string name="zero">0</string>
     <string name="sorting">Сортировка</string>
 
-    <string name="app_name">HabitTracker</string>
     <string name="habit_name">Название</string>
     <string name="habit_description">Описание</string>
     <string name="habit_priority">Приоритет</string>
@@ -33,4 +32,15 @@
     <string name="habit_bad_type">Плохая привычка</string>
     <string name="habit_quantity">Количество</string>
     <string name="habit_frequency">Периодичность</string>
+
+    <string name="create_habit_count_placeholder">Сколько</string>
+    <string name="create_habit_string_builder_1">раз за</string>
+    <string name="create_habit_string_builder_2">дней</string>
+    <string name="create_habit_frequency_placeholder">Промежуток</string>
+
+    <string name="about_title">TODO приложение в рамках курса от "Doubletapp"</string>
+    <string name="about_author">Автор приложения: Алиев Нихат"</string>
+    <string name="about_copyright">УрФУ | Doubletapp 2025"</string>
+
+    <string name="save">Сохранить</string>
 </resources>
