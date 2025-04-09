@@ -19,7 +19,7 @@ import com.example.doubletapp_android_course.model.dataClasses.Habit
 import com.example.doubletapp_android_course.R
 import com.example.doubletapp_android_course.databinding.FragmentCreateHabitBinding
 import com.example.doubletapp_android_course.model.views.HabitEditViewModel
-import com.example.doubletapp_android_course.model.views.HabitViewModel
+import com.example.doubletapp_android_course.model.views.HabitListViewModel
 import com.example.doubletapp_android_course.model.enums.HabitType
 import com.google.android.material.snackbar.Snackbar
 
@@ -27,7 +27,7 @@ class CreateHabitFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateHabitBinding
     private var habit: Habit? = null
-    private val viewModel: HabitViewModel by activityViewModels()
+    private val viewModel: HabitListViewModel by activityViewModels()
     private val editViewModel: HabitEditViewModel by activityViewModels()
 
     companion object {

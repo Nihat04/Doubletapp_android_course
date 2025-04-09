@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.doubletapp_android_course.model.adapters.HabitAdapter
 import com.example.doubletapp_android_course.R
 import com.example.doubletapp_android_course.databinding.FragmentHabitsListBinding
-import com.example.doubletapp_android_course.model.views.HabitViewModel
+import com.example.doubletapp_android_course.model.views.HabitListViewModel
 import com.example.doubletapp_android_course.lib.HabitDiffCallback
 import com.example.doubletapp_android_course.model.enums.HabitType
 import kotlin.getValue
@@ -20,7 +20,7 @@ import kotlin.getValue
 @Suppress("DEPRECATION")
 class HabitsListFragment : Fragment() {
     private lateinit var binding: FragmentHabitsListBinding
-    private val viewModel: HabitViewModel by activityViewModels()
+    private val viewModel: HabitListViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
