@@ -15,11 +15,11 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
-import com.example.doubletapp_android_course.Habit
+import com.example.doubletapp_android_course.model.dataClasses.Habit
 import com.example.doubletapp_android_course.R
 import com.example.doubletapp_android_course.databinding.FragmentCreateHabitBinding
-import com.example.doubletapp_android_course.lib.HabitEditViewModel
-import com.example.doubletapp_android_course.lib.HabitViewModel
+import com.example.doubletapp_android_course.model.views.HabitEditViewModel
+import com.example.doubletapp_android_course.model.views.HabitViewModel
 import com.example.doubletapp_android_course.model.enums.HabitType
 import com.google.android.material.snackbar.Snackbar
 

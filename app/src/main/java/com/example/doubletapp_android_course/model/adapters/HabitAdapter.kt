@@ -1,8 +1,11 @@
-package com.example.doubletapp_android_course
+package com.example.doubletapp_android_course.model.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.doubletapp_android_course.model.dataClasses.Habit
+import com.example.doubletapp_android_course.model.viewHolders.HabitViewHolder
+import com.example.doubletapp_android_course.R
 
 class HabitAdapter(private val habits: MutableList<Habit> ) : RecyclerView.Adapter<HabitViewHolder>() {
 

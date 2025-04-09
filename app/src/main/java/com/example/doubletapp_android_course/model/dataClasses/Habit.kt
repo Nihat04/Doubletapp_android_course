@@ -1,4 +1,4 @@
-package com.example.doubletapp_android_course
+package com.example.doubletapp_android_course.model.dataClasses
 
 import android.os.Parcelable
 import com.example.doubletapp_android_course.model.enums.HabitType

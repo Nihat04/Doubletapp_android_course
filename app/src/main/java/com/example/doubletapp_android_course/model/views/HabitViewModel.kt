@@ -1,8 +1,8 @@
-package com.example.doubletapp_android_course.lib
+package com.example.doubletapp_android_course.model.views
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.doubletapp_android_course.Habit
+import com.example.doubletapp_android_course.model.dataClasses.Habit
 
 class HabitViewModel: ViewModel() {
     val habits = MutableLiveData<MutableList<Habit>>(mutableListOf())
@@ -21,9 +21,5 @@ class HabitViewModel: ViewModel() {
 
     fun setHabits(habitList: MutableList<Habit>) {
         habits.value = habitList
-    }
-
-    fun generateId(): Int {
-        return System.currentTimeMillis().toInt()
     }
 }

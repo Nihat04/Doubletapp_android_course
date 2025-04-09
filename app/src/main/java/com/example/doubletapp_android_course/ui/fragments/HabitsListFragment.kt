@@ -9,14 +9,15 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.DiffUtil
-import com.example.doubletapp_android_course.HabitAdapter
+import com.example.doubletapp_android_course.model.adapters.HabitAdapter
 import com.example.doubletapp_android_course.R
 import com.example.doubletapp_android_course.databinding.FragmentHabitsListBinding
-import com.example.doubletapp_android_course.lib.HabitViewModel
+import com.example.doubletapp_android_course.model.views.HabitViewModel
 import com.example.doubletapp_android_course.lib.HabitDiffCallback
 import com.example.doubletapp_android_course.model.enums.HabitType
 import kotlin.getValue
 
+@Suppress("DEPRECATION")
 class HabitsListFragment : Fragment() {
     private lateinit var binding: FragmentHabitsListBinding
     private val viewModel: HabitViewModel by activityViewModels()

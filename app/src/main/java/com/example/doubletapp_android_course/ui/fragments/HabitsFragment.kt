@@ -1,14 +1,13 @@
 package com.example.doubletapp_android_course.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.doubletapp_android_course.R
 import com.example.doubletapp_android_course.databinding.FragmentHabitsBinding
-import com.example.doubletapp_android_course.lib.ViewPagerAdapter
+import com.example.doubletapp_android_course.model.adapters.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HabitsFragment : Fragment()  {
@@ -22,7 +21,6 @@ class HabitsFragment : Fragment()  {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i("habitsFragment", "on view created called")
 
         val viewPagerAdapter = ViewPagerAdapter(this)
         binding.viewPager.adapter = viewPagerAdapter
