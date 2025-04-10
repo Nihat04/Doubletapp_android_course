@@ -7,7 +7,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.doubletapp_android_course.databinding.MainActivityBinding
 import com.example.doubletapp_android_course.ui.fragments.AboutFragment
-import com.example.doubletapp_android_course.ui.fragments.HabitsFragment
+import com.example.doubletapp_android_course.ui.fragments.HabitsPageFragment
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.nav_home -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, HabitsFragment())
+                        .replace(R.id.fragment_container, HabitsPageFragment())
                         .commit()
                 }
                 R.id.nav_about -> {
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, HabitsFragment())
+                .replace(R.id.fragment_container, HabitsPageFragment())
                 .commit()
         }
     }

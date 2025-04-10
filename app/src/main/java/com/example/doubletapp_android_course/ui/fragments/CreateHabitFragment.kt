@@ -15,10 +15,11 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
-import com.example.doubletapp_android_course.Habit
+import com.example.doubletapp_android_course.model.dataClasses.Habit
 import com.example.doubletapp_android_course.R
 import com.example.doubletapp_android_course.databinding.FragmentCreateHabitBinding
-import com.example.doubletapp_android_course.lib.HabitViewModel
+import com.example.doubletapp_android_course.model.views.HabitEditViewModel
+import com.example.doubletapp_android_course.model.views.HabitListViewModel
 import com.example.doubletapp_android_course.model.enums.HabitType
 import com.google.android.material.snackbar.Snackbar
 
@@ -26,7 +27,8 @@ class CreateHabitFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateHabitBinding
     private var habit: Habit? = null
-    private val viewModel: HabitViewModel by activityViewModels()
+    private val viewModel: HabitListViewModel by activityViewModels()
+    private val editViewModel: HabitEditViewModel by activityViewModels()
 
     companion object {
         fun newInstance(habit: Habit): CreateHabitFragment {
@@ -40,6 +42,8 @@ class CreateHabitFragment : Fragment() {
         binding = FragmentCreateHabitBinding.inflate(inflater, container, false)
 
         habit = arguments?.getParcelable<Habit>("habit")
+
+        editViewModel.saveHabit(habit)
 
         return binding.root
     }
@@ -163,10 +167,9 @@ class CreateHabitFragment : Fragment() {
 
             if (!isValid) return@setOnClickListener
 
-            val newId = habit?.id ?: viewModel.generateId()
-
-            val habit = Habit(
-                newId,
+            val savedHabit = editViewModel.habit.value
+            editViewModel.generateHabit(
+                savedHabit?.id,
                 name,
                 description,
                 priority,
@@ -175,8 +178,7 @@ class CreateHabitFragment : Fragment() {
                 frequencyText.toInt(),
                 color
             )
-
-            viewModel.addHabit(habit)
+            editViewModel.habit.value?.let { viewModel.addHabit(it) }
 
             parentFragmentManager.popBackStack()
         }

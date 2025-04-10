@@ -1,7 +1,7 @@
 package com.example.doubletapp_android_course.lib
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.doubletapp_android_course.Habit
+import com.example.doubletapp_android_course.model.dataClasses.Habit
 
 class HabitDiffCallback(
     private val oldList: List<Habit>,

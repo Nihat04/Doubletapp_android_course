@@ -68,25 +68,24 @@
                 android:id="@+id/count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Сколько"
+                android:hint="@string/create_habit_count_placeholder"
                 android:inputType="number"
         />
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="раз за"
-                android:inputType="number"
+                android:text="@string/create_habit_string_builder_1"
         />
         <EditText
                 android:id="@+id/frequency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="промежуток"
+                android:hint="@string/create_habit_frequency_placeholder"
                 android:inputType="number"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="дней"/>
+                android:text="@string/create_habit_string_builder_2"/>
     </LinearLayout>
 
     <HorizontalScrollView
@@ -107,6 +106,6 @@
             android:id="@+id/habit_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Сохранить"/>
+            android:text="@string/save"/>
 
 </LinearLayout>
