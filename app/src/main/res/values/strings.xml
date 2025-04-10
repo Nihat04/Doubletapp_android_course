@@ -43,4 +43,5 @@
     <string name="about_copyright">УрФУ | Doubletapp 2025"</string>
 
     <string name="save">Сохранить</string>
+    <string name="table_name">habits\n</string>
 </resources>
