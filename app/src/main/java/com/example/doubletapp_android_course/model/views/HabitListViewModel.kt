@@ -1,14 +1,19 @@
 package com.example.doubletapp_android_course.model.views
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.doubletapp_android_course.model.dataClasses.Habit
 
 class HabitListViewModel: ViewModel() {
-    val habits = MutableLiveData<MutableList<Habit>>(mutableListOf())
+    private val mutableHabits: MutableLiveData<MutableList<Habit>> = MutableLiveData(mutableListOf())
+    private val mutableVisibleHabits: MutableLiveData<MutableList<Habit>> = MutableLiveData(mutableListOf())
+
+    val habits: LiveData<MutableList<Habit>> = mutableVisibleHabits
 
     fun addHabit(habit: Habit) {
-        val currentHabits = habits.value ?: mutableListOf()
+        val currentHabits = mutableHabits.value ?: mutableListOf()
+
         val index = currentHabits.indexOfFirst { it.id == habit.id }
         if (index != -1) {
             currentHabits[index] = habit
@@ -16,20 +21,23 @@ class HabitListViewModel: ViewModel() {
             currentHabits.add(habit)
         }
 
-        habits.value = currentHabits
+        mutableHabits.value = currentHabits
+        mutableVisibleHabits.value = currentHabits
     }
 
     fun setHabits(habitList: MutableList<Habit>) {
-        habits.value = habitList
+        mutableHabits.value = habitList
+        mutableVisibleHabits.value = habitList
     }
 
     fun filterHabitsByName(query: String) {
-        val currentHabits = habits.value ?: mutableListOf()
+        val allHabits = mutableHabits.value ?: mutableListOf()
         if (query.isBlank()) {
-            habits.value = currentHabits
+            mutableVisibleHabits.value = allHabits
         } else {
-            val filteredHabits = currentHabits.filter { it.name.contains(query, ignoreCase = true) }
-            habits.value = filteredHabits.toMutableList()
+            mutableVisibleHabits.value = allHabits
+                .filter { it.name.contains(query, ignoreCase = true) }
+                .toMutableList()
         }
     }
 }

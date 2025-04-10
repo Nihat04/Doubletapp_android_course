@@ -5,14 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.doubletapp_android_course.model.dataClasses.Habit
 import com.example.doubletapp_android_course.model.enums.HabitType
+import java.util.UUID
 
 class HabitEditViewModel: ViewModel() {
     var currentHabit = MutableLiveData<Habit?>(null)
     val habit: LiveData<Habit?> get() = currentHabit
 
-    fun saveHabit(name: String, description: String, priority: String, type: HabitType, count: Int, frequency: Int, color: Int?) {
+    fun saveHabit(habit: Habit?) {
+        currentHabit.value = habit
+    }
+
+    fun generateHabit(id: String? = null, name: String, description: String, priority: String, type: HabitType, count: Int, frequency: Int, color: Int?) {
         val newHabit = Habit(
-            id = currentHabit.value?.id ?: generateId(),
+            id = id ?: generateId(),
             name = name,
             description = description,
             priority = priority,
@@ -24,7 +29,7 @@ class HabitEditViewModel: ViewModel() {
         currentHabit.value = newHabit
     }
 
-    private fun generateId(): Int {
-        return System.currentTimeMillis().toInt()
+    private fun generateId(): String {
+        return UUID.randomUUID().toString()
     }
 }

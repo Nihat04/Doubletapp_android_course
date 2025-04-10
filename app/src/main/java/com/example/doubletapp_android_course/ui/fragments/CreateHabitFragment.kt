@@ -43,6 +43,8 @@ class CreateHabitFragment : Fragment() {
 
         habit = arguments?.getParcelable<Habit>("habit")
 
+        editViewModel.saveHabit(habit)
+
         return binding.root
     }
 
@@ -165,7 +167,17 @@ class CreateHabitFragment : Fragment() {
 
             if (!isValid) return@setOnClickListener
 
-            editViewModel.saveHabit(name, description, priority, type, countText.toInt(), frequencyText.toInt(), color)
+            val savedHabit = editViewModel.habit.value
+            editViewModel.generateHabit(
+                savedHabit?.id,
+                name,
+                description,
+                priority,
+                type,
+                countText.toInt(),
+                frequencyText.toInt(),
+                color
+            )
             editViewModel.habit.value?.let { viewModel.addHabit(it) }
 
             parentFragmentManager.popBackStack()

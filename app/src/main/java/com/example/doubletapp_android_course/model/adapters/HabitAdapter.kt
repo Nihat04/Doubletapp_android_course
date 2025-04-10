@@ -58,7 +58,7 @@ class HabitAdapter(private val habits: MutableList<Habit> ) : RecyclerView.Adapt
     }
 
     fun containsHabit(id: String): Boolean {
-        return habits.any { it.id == id.toInt() }
+        return habits.any { it.id == id }
     }
 
     fun addHabit(habit: Habit) {
