@@ -2,10 +2,12 @@ package com.example.doubletapp_android_course.model.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.doubletapp_android_course.model.dataClasses.Habit
 import com.example.doubletapp_android_course.model.viewHolders.HabitViewHolder
 import com.example.doubletapp_android_course.R
+import com.example.doubletapp_android_course.lib.HabitDiffCallback
 
 class HabitAdapter(private val habits: MutableList<Habit> ) : RecyclerView.Adapter<HabitViewHolder>() {
 
@@ -50,11 +52,13 @@ class HabitAdapter(private val habits: MutableList<Habit> ) : RecyclerView.Adapt
     }
 
     fun updateHabits(updatedHabits: List<Habit>) {
-        if (updatedHabits.isNotEmpty()) {
-            habits.clear()
-            habits.addAll(updatedHabits)
-            notifyDataSetChanged()
-        }
+        val diffCallback = HabitDiffCallback(habits, updatedHabits)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        habits.clear()
+        habits.addAll(updatedHabits)
+
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun containsHabit(id: String): Boolean {

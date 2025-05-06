@@ -37,15 +37,4 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="16dp"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/filters_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|bottom"
-            android:src="@drawable/ic_create_icon"
-            android:contentDescription="@string/add_habit"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_margin="16dp"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

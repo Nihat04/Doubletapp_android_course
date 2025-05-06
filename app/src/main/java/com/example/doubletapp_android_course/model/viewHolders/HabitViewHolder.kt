@@ -18,7 +18,7 @@ class HabitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(habit: Habit) {
         habitName.text = habit.name
         habitDescription.text = habit.description
-        habitPriority.text = itemView.context.getString(habit.priority.impactName)
+        habitPriority.text = itemView.context.getString(habit.priority.displayName)
         habitType.text = itemView.context.getString(habit.type.impactName)
         habitFrequency.text = "${habit.count} раз за ${habit.frequency} дней"
     }

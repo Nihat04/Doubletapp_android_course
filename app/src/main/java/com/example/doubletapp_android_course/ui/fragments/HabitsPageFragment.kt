@@ -13,7 +13,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class HabitsPageFragment : Fragment()  {
     private lateinit var binding: FragmentHabitsBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentHabitsBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -42,11 +42,5 @@ class HabitsPageFragment : Fragment()  {
                 .addToBackStack(null)
                 .commit()
         }
-
-        binding.filtersButton.setOnClickListener {
-            val modalBottomSheet = FilterBottomSheet()
-            modalBottomSheet.show(activity.supportFragmentManager, FilterBottomSheet.TAG)
-        }
-
     }
 }

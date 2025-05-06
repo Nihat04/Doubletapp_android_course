@@ -19,7 +19,6 @@ import com.example.doubletapp_android_course.lib.HabitDiffCallback
 import com.example.doubletapp_android_course.model.enums.HabitType
 import com.example.doubletapp_android_course.model.views.HabitListViewModelFactory
 
-@Suppress("DEPRECATION")
 class HabitsListFragment : Fragment() {
     private lateinit var binding: FragmentHabitsListBinding
     private lateinit var viewModel: HabitListViewModel

@@ -21,6 +21,7 @@ import com.example.doubletapp_android_course.R
 import com.example.doubletapp_android_course.database.App
 import com.example.doubletapp_android_course.database.HabitsRepositoryProvider
 import com.example.doubletapp_android_course.databinding.FragmentCreateHabitBinding
+import com.example.doubletapp_android_course.model.enums.HabitPriority
 import com.example.doubletapp_android_course.model.views.HabitEditViewModel
 import com.example.doubletapp_android_course.model.views.HabitListViewModel
 import com.example.doubletapp_android_course.model.enums.HabitType
@@ -135,11 +136,19 @@ class CreateHabitFragment : Fragment() {
         binding.habitSaveButton.setOnClickListener {
             val name = binding.habitNameInput.text.toString().trim()
             val description = binding.habitDescriptionInput.text.toString().trim()
-            val priority = binding.habitPrioritySpinner.selectedItem.toString()
             val type = getRadio(binding.typeRadio)
 
+            val selectedItem = binding.habitPrioritySpinner.selectedItem
+            var priority = HabitPriority.entries.find {
+                getString(it.displayName) == selectedItem?.toString()
+            }
+
+            if(priority == null) {
+                priority = HabitPriority.LOW
+            }
+
             if (type == null) {
-                Snackbar.make(it, "Пожалуйства выберите привычку", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(it, "Пожалуйста выберите привычку", Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
