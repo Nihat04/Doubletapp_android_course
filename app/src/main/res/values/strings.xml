@@ -44,4 +44,8 @@
 
     <string name="save">Сохранить</string>
     <string name="table_name">habits\n</string>
+
+    <string name="priority_high">Высокий</string>
+    <string name="priority_middle">Средний</string>
+    <string name="priority_low">Низкий</string>
 </resources>

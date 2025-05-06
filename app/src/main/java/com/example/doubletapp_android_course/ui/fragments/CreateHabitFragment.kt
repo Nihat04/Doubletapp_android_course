@@ -92,8 +92,7 @@ class CreateHabitFragment : Fragment() {
                 binding.colorContainer.setBackgroundColor(habit.color)
             }
 
-            val priorityArray = resources.getStringArray(R.array.priority_array)
-            val priorityIndex = priorityArray.indexOf(habit.priority)
+            val priorityIndex = habit.priority.ordinal
             if (priorityIndex >= 0) {
                 binding.habitPrioritySpinner.setSelection(priorityIndex)
             }
