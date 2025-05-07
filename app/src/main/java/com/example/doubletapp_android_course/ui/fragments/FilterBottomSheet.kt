@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.doubletapp_android_course.database.App
 import com.example.doubletapp_android_course.database.HabitsRepositoryProvider
-import com.example.doubletapp_android_course.databinding.FragmentFilterBottomSheetBinding
+import com.example.doubletapp_android_course.databinding.FragmentHabitsBinding
 import com.example.doubletapp_android_course.model.views.HabitListViewModel
 import com.example.doubletapp_android_course.model.views.HabitListViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -17,14 +17,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class FilterBottomSheet : BottomSheetDialogFragment() {
 
-    private lateinit var binding: FragmentFilterBottomSheetBinding
+    private lateinit var binding: FragmentHabitsBinding
     private lateinit var habitListViewModel: HabitListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentFilterBottomSheetBinding.inflate(inflater, container, false)
+        binding = FragmentHabitsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
