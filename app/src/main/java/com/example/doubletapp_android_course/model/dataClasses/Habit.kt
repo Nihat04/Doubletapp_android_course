@@ -1,17 +1,50 @@
 package com.example.doubletapp_android_course.model.dataClasses
 
+import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.doubletapp_android_course.model.enums.HabitPriority
 import com.example.doubletapp_android_course.model.enums.HabitType
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
+@Entity(tableName = "habits")
 data class Habit(
-    val id: String,
+    @PrimaryKey val id: String,
     val name: String,
     val description: String,
-    val priority: String,
+    val priority: HabitPriority,
     val type: HabitType,
     val count: Int,
     val frequency: Int,
     val color: Int?
-) : Parcelable
+) : Parcelable {
+
+    constructor(parcel: Parcel) : this(
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        HabitPriority.entries[parcel.readInt()],
+        HabitType.entries[parcel.readInt()],
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readValue(Int::class.java.classLoader) as? Int
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
+        parcel.writeString(name)
+        parcel.writeString(description)
+        parcel.writeInt(priority.ordinal)
+        parcel.writeInt(type.ordinal) // <- save ordinal instead of parcelable
+        parcel.writeInt(count)
+        parcel.writeInt(frequency)
+        parcel.writeValue(color)
+    }
+
+    override fun describeContents(): Int = 0
+
+    companion object CREATOR : Parcelable.Creator<Habit> {
+        override fun createFromParcel(parcel: Parcel): Habit = Habit(parcel)
+        override fun newArray(size: Int): Array<Habit?> = arrayOfNulls(size)
+    }
+}

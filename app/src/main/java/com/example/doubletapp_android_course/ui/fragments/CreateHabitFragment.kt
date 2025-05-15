@@ -15,19 +15,24 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.doubletapp_android_course.model.dataClasses.Habit
 import com.example.doubletapp_android_course.R
+import com.example.doubletapp_android_course.database.App
+import com.example.doubletapp_android_course.database.HabitsRepositoryProvider
 import com.example.doubletapp_android_course.databinding.FragmentCreateHabitBinding
+import com.example.doubletapp_android_course.model.enums.HabitPriority
 import com.example.doubletapp_android_course.model.views.HabitEditViewModel
 import com.example.doubletapp_android_course.model.views.HabitListViewModel
 import com.example.doubletapp_android_course.model.enums.HabitType
+import com.example.doubletapp_android_course.model.views.HabitListViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class CreateHabitFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateHabitBinding
     private var habit: Habit? = null
-    private val viewModel: HabitListViewModel by activityViewModels()
+    private lateinit var viewModel: HabitListViewModel
     private val editViewModel: HabitEditViewModel by activityViewModels()
 
     companion object {
@@ -50,6 +55,11 @@ class CreateHabitFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val database = (requireActivity().application as App).database
+        val repository = HabitsRepositoryProvider.getRepository(database)
+        val factory = HabitListViewModelFactory(repository)
+        viewModel = ViewModelProvider(requireActivity(), factory)[HabitListViewModel::class.java]
 
         addArrays()
         provideHabit()
@@ -83,8 +93,7 @@ class CreateHabitFragment : Fragment() {
                 binding.colorContainer.setBackgroundColor(habit.color)
             }
 
-            val priorityArray = resources.getStringArray(R.array.priority_array)
-            val priorityIndex = priorityArray.indexOf(habit.priority)
+            val priorityIndex = habit.priority.ordinal
             if (priorityIndex >= 0) {
                 binding.habitPrioritySpinner.setSelection(priorityIndex)
             }
@@ -127,11 +136,19 @@ class CreateHabitFragment : Fragment() {
         binding.habitSaveButton.setOnClickListener {
             val name = binding.habitNameInput.text.toString().trim()
             val description = binding.habitDescriptionInput.text.toString().trim()
-            val priority = binding.habitPrioritySpinner.selectedItem.toString()
             val type = getRadio(binding.typeRadio)
 
+            val selectedItem = binding.habitPrioritySpinner.selectedItem
+            var priority = HabitPriority.entries.find {
+                getString(it.displayName) == selectedItem?.toString()
+            }
+
+            if(priority == null) {
+                priority = HabitPriority.LOW
+            }
+
             if (type == null) {
-                Snackbar.make(it, "Пожалуйства выберите привычку", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(it, "Пожалуйста выберите привычку", Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 

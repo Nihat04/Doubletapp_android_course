@@ -3,41 +3,48 @@ package com.example.doubletapp_android_course.model.views
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.doubletapp_android_course.database.HabitsRepository
 import com.example.doubletapp_android_course.model.dataClasses.Habit
+import kotlinx.coroutines.launch
 
-class HabitListViewModel: ViewModel() {
-    private val mutableHabits: MutableLiveData<MutableList<Habit>> = MutableLiveData(mutableListOf())
-    private val mutableVisibleHabits: MutableLiveData<MutableList<Habit>> = MutableLiveData(mutableListOf())
+class HabitListViewModel(private val repository: HabitsRepository): ViewModel() {
 
-    val habits: LiveData<MutableList<Habit>> = mutableVisibleHabits
+    val habits: LiveData<List<Habit>> = repository.getAllHabits()
 
-    fun addHabit(habit: Habit) {
-        val currentHabits = mutableHabits.value ?: mutableListOf()
+    private val mutableVisibleHabits: MutableLiveData<List<Habit>> = MutableLiveData()
+    val visibleHabits: LiveData<List<Habit>> = mutableVisibleHabits
 
-        val index = currentHabits.indexOfFirst { it.id == habit.id }
-        if (index != -1) {
-            currentHabits[index] = habit
-        } else {
-            currentHabits.add(habit)
+    init {
+        habits.observeForever { habitList ->
+            mutableVisibleHabits.value = habitList
         }
-
-        mutableHabits.value = currentHabits
-        mutableVisibleHabits.value = currentHabits
     }
 
-    fun setHabits(habitList: MutableList<Habit>) {
-        mutableHabits.value = habitList
-        mutableVisibleHabits.value = habitList
+    fun addHabit(habit: Habit) {
+        viewModelScope.launch {
+            repository.addHabit(habit)
+        }
+    }
+
+    fun updateHabit(habit: Habit) {
+        viewModelScope.launch {
+            repository.updateHabit(habit)
+        }
+    }
+
+    fun deleteHabit(habit: Habit) {
+        viewModelScope.launch {
+            repository.deleteHabit(habit)
+        }
     }
 
     fun filterHabitsByName(query: String) {
-        val allHabits = mutableHabits.value ?: mutableListOf()
-        if (query.isBlank()) {
-            mutableVisibleHabits.value = allHabits
+        val currentHabits = habits.value ?: return
+        mutableVisibleHabits.value = if (query.isBlank()) {
+            currentHabits
         } else {
-            mutableVisibleHabits.value = allHabits
-                .filter { it.name.contains(query, ignoreCase = true) }
-                .toMutableList()
+            currentHabits.filter { it.name.contains(query, ignoreCase = true) }
         }
     }
 }

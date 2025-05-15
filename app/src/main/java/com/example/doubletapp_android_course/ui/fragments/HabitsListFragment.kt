@@ -6,21 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.DiffUtil
 import com.example.doubletapp_android_course.model.adapters.HabitAdapter
 import com.example.doubletapp_android_course.R
+import com.example.doubletapp_android_course.database.App
+import com.example.doubletapp_android_course.database.HabitsRepositoryProvider
 import com.example.doubletapp_android_course.databinding.FragmentHabitsListBinding
 import com.example.doubletapp_android_course.model.views.HabitListViewModel
 import com.example.doubletapp_android_course.lib.HabitDiffCallback
 import com.example.doubletapp_android_course.model.enums.HabitType
-import kotlin.getValue
+import com.example.doubletapp_android_course.model.views.HabitListViewModelFactory
 
-@Suppress("DEPRECATION")
 class HabitsListFragment : Fragment() {
     private lateinit var binding: FragmentHabitsListBinding
-    private val viewModel: HabitListViewModel by activityViewModels()
+    private lateinit var viewModel: HabitListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +33,11 @@ class HabitsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val database = (requireActivity().application as App).database
+        val repository = HabitsRepositoryProvider.getRepository(database)
+        val factory = HabitListViewModelFactory(repository)
+        viewModel = ViewModelProvider(requireActivity(), factory)[HabitListViewModel::class.java]
 
         val habitType = arguments?.getSerializable(ARG_HABIT_TYPE) as? HabitType ?: HabitType.POSITIVE
         val adapter = HabitAdapter(mutableListOf())
