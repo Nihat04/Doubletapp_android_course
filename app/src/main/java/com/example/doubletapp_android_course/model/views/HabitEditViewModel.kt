@@ -16,9 +16,9 @@ class HabitEditViewModel: ViewModel() {
         currentHabit.value = habit
     }
 
-    fun generateHabit(id: String? = null, name: String, description: String, priority: HabitPriority, type: HabitType, count: Int, frequency: Int, color: Int?) {
+    fun generateHabit(uid: String? = null, name: String, description: String, priority: HabitPriority, type: HabitType, count: Int, frequency: Int, color: Int?) {
         val newHabit = Habit(
-            id = id ?: generateId(),
+            uid = uid ?: generateId(),
             name = name,
             description = description,
             priority = priority,

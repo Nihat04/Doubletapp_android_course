@@ -41,7 +41,7 @@ class HabitAdapter(private val habits: MutableList<Habit> ) : RecyclerView.Adapt
     }
 
     fun updateHabit(updatedHabit: Habit) {
-        val index = habits.indexOfFirst { it.id == updatedHabit.id }
+        val index = habits.indexOfFirst { it.uid == updatedHabit.uid }
         if (index != -1) {
             habits[index] = updatedHabit
             notifyItemChanged(index)
@@ -62,11 +62,11 @@ class HabitAdapter(private val habits: MutableList<Habit> ) : RecyclerView.Adapt
     }
 
     fun containsHabit(id: String): Boolean {
-        return habits.any { it.id == id }
+        return habits.any { it.uid == id }
     }
 
     fun addHabit(habit: Habit) {
-        if (!habits.any { it.id == habit.id }) {
+        if (!habits.any { it.uid == habit.uid }) {
             habits.add(habit)
             notifyItemInserted(habits.size - 1)
         }

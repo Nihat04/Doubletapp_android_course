@@ -18,14 +18,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.doubletapp_android_course.model.dataClasses.Habit
 import com.example.doubletapp_android_course.R
-import com.example.doubletapp_android_course.App
-import com.example.doubletapp_android_course.database.HabitsRepositoryProvider
 import com.example.doubletapp_android_course.databinding.FragmentCreateHabitBinding
 import com.example.doubletapp_android_course.model.enums.HabitPriority
 import com.example.doubletapp_android_course.model.views.HabitEditViewModel
 import com.example.doubletapp_android_course.model.views.HabitListViewModel
 import com.example.doubletapp_android_course.model.enums.HabitType
-import com.example.doubletapp_android_course.model.views.HabitListViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class CreateHabitFragment : Fragment() {
@@ -43,7 +40,7 @@ class CreateHabitFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCreateHabitBinding.inflate(inflater, container, false)
 
         habit = arguments?.getParcelable<Habit>("habit")
@@ -56,10 +53,7 @@ class CreateHabitFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val database = (requireActivity().application as App).database
-        val repository = HabitsRepositoryProvider.getRepository(database)
-        val factory = HabitListViewModelFactory(repository)
-        viewModel = ViewModelProvider(requireActivity(), factory)[HabitListViewModel::class.java]
+        viewModel = ViewModelProvider(this)[HabitListViewModel::class.java]
 
         addArrays()
         provideHabit()
@@ -133,7 +127,7 @@ class CreateHabitFragment : Fragment() {
     }
 
     private fun bindCreateButton() {
-        binding.habitSaveButton.setOnClickListener {
+        binding.habitSaveButton.setOnClickListener { it ->
             val name = binding.habitNameInput.text.toString().trim()
             val description = binding.habitDescriptionInput.text.toString().trim()
             val type = getRadio(binding.typeRadio)
@@ -185,8 +179,8 @@ class CreateHabitFragment : Fragment() {
             if (!isValid) return@setOnClickListener
 
             val savedHabit = editViewModel.habit.value
-            editViewModel.generateHabit(
-                savedHabit?.id,
+            val newHabit = Habit(
+                savedHabit?.uid,
                 name,
                 description,
                 priority,

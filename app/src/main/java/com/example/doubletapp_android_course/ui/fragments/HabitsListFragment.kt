@@ -11,13 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.DiffUtil
 import com.example.doubletapp_android_course.model.adapters.HabitAdapter
 import com.example.doubletapp_android_course.R
-import com.example.doubletapp_android_course.App
-import com.example.doubletapp_android_course.database.HabitsRepositoryProvider
 import com.example.doubletapp_android_course.databinding.FragmentHabitsListBinding
 import com.example.doubletapp_android_course.model.views.HabitListViewModel
 import com.example.doubletapp_android_course.lib.HabitDiffCallback
 import com.example.doubletapp_android_course.model.enums.HabitType
-import com.example.doubletapp_android_course.model.views.HabitListViewModelFactory
 
 class HabitsListFragment : Fragment() {
     private lateinit var binding: FragmentHabitsListBinding
@@ -34,10 +31,7 @@ class HabitsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val database = (requireActivity().application as App).database
-        val repository = HabitsRepositoryProvider.getRepository(database)
-        val factory = HabitListViewModelFactory(repository)
-        viewModel = ViewModelProvider(requireActivity(), factory)[HabitListViewModel::class.java]
+        viewModel = ViewModelProvider(this)[HabitListViewModel::class.java]
 
         val habitType = arguments?.getSerializable(ARG_HABIT_TYPE) as? HabitType ?: HabitType.POSITIVE
         val adapter = HabitAdapter(mutableListOf())

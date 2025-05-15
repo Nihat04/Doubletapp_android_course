@@ -2,14 +2,11 @@ package com.example.doubletapp_android_course.model.dataClasses
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.example.doubletapp_android_course.model.enums.HabitPriority
 import com.example.doubletapp_android_course.model.enums.HabitType
 
-@Entity(tableName = "habits")
 data class Habit(
-    @PrimaryKey val id: String,
+    val uid: String?,
     val name: String,
     val description: String,
     val priority: HabitPriority,
@@ -31,7 +28,7 @@ data class Habit(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
+        parcel.writeString(uid)
         parcel.writeString(name)
         parcel.writeString(description)
         parcel.writeInt(priority.ordinal)
@@ -48,3 +45,4 @@ data class Habit(
         override fun newArray(size: Int): Array<Habit?> = arrayOfNulls(size)
     }
 }
+
