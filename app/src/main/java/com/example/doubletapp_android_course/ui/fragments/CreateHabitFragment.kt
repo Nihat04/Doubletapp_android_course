@@ -18,7 +18,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.doubletapp_android_course.model.dataClasses.Habit
 import com.example.doubletapp_android_course.R
-import com.example.doubletapp_android_course.database.App
+import com.example.doubletapp_android_course.App
 import com.example.doubletapp_android_course.database.HabitsRepositoryProvider
 import com.example.doubletapp_android_course.databinding.FragmentCreateHabitBinding
 import com.example.doubletapp_android_course.model.enums.HabitPriority

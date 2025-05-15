@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.example.doubletapp_android_course.database.App
+import com.example.doubletapp_android_course.App
 import com.example.doubletapp_android_course.database.HabitsRepositoryProvider
 import com.example.doubletapp_android_course.databinding.FragmentHabitsBinding
 import com.example.doubletapp_android_course.model.views.HabitListViewModel

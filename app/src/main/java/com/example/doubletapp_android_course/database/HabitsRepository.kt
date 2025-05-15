@@ -2,25 +2,32 @@ package com.example.doubletapp_android_course.database
 
 import androidx.lifecycle.LiveData
 import com.example.doubletapp_android_course.model.dataClasses.Habit
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HabitsRepository(private val habitsDb: HabitsDb) {
-    fun getHabitById(id: String): Habit? {
-        return habitsDb.habitDao.getItemById(id)
-    }
+    private val ioScope = CoroutineScope(Dispatchers.IO)
 
     fun getAllHabits(): LiveData<List<Habit>> {
         return habitsDb.habitDao.getAllItems()
     }
 
     fun updateHabit(habit: Habit) {
-        habitsDb.habitDao.updateItem(habit)
+        ioScope.launch {
+            habitsDb.habitDao.updateItem(habit)
+        }
     }
 
     fun addHabit(habit: Habit) {
-        habitsDb.habitDao.insertItem(habit)
+        ioScope.launch {
+            habitsDb.habitDao.insertItem(habit)
+        }
     }
 
     fun deleteHabit(habit: Habit) {
-        habitsDb.habitDao.deleteItem(habit)
+        ioScope.launch {
+            habitsDb.habitDao.deleteItem(habit)
+        }
     }
 }

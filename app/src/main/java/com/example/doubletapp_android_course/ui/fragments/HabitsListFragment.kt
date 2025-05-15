@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.DiffUtil
 import com.example.doubletapp_android_course.model.adapters.HabitAdapter
 import com.example.doubletapp_android_course.R
-import com.example.doubletapp_android_course.database.App
+import com.example.doubletapp_android_course.App
 import com.example.doubletapp_android_course.database.HabitsRepositoryProvider
 import com.example.doubletapp_android_course.databinding.FragmentHabitsListBinding
 import com.example.doubletapp_android_course.model.views.HabitListViewModel
